@@ -13,6 +13,7 @@ public class Main {
 
         List<Product> allProducts = dao.findAll();
         Product product = dao.findById(3L);
+        System.out.println(product);
         dao.saveOrUpdate(new Product("trust", 131));
         dao.deleteById(4L);
 

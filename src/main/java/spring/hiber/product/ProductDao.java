@@ -21,22 +21,22 @@ public class ProductDao {
         this.setFactory(factory);
     }
 
-    /*public void showManyItems() {
+    public void showManyItems() {
         try (Session session = factory.getSession()) { //getCurrentSession()){
             session.beginTransaction();
-            List<Product> products = session.createQuery("FROM products.products_tbl").getResultList();
+            List<Product> products = session.createQuery("FROM Product").getResultList();
             System.out.println(products + "/n");
         }
-    }*/
+    }
 
     public Product findById(Long id) {
         try (Session session = factory.getSession()) { //getCurrentSession()){
             session.beginTransaction();
             //Product pr1 = (Product) session.byId(String.valueOf(id)); // это ищет по id???
             Product pr2 = session.get(Product.class, id); // или это ???
-            Product pr = session.createQuery(String.format(
+           /* Product pr = session.createQuery(String.format(
                     "SELECT p FROM products_tbl WHERE p.id = %d", id), Product.class)
-                    .getSingleResult(); // через запрос поиск
+                    .getSingleResult(); // через запрос поиск*/
             return pr2; // pr1 pr можно попробовать вернтуь
 
         }
@@ -46,7 +46,7 @@ public class ProductDao {
     public List<Product> findAll() {
         try (Session session = factory.getSession()) { //getCurrentSession()){
             session.beginTransaction();
-            List<Product> products = session.createQuery("FROM products_tbl").getResultList();
+            List<Product> products = session.createQuery("FROM Product").getResultList();
             return products;
         }
     }
@@ -56,6 +56,7 @@ public class ProductDao {
             session.beginTransaction();
             Product product = session.get(Product.class, id);
             session.delete(product); // или здесь можно написать запроц query на удаление, чтобы оъект не вытаскивать (из лекции)
+            //session.createQuery(String.format("DELETE FROM Product WHERE id = %d", id));
             session.getTransaction().commit();
         }
 
